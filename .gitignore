@@ -1,0 +1,11 @@
+.idea
+.vscode
+vendor
+tests/*.http
+tmp/*
+logs/*
+secrets/*
+!tmp/.gitkeep
+!logs/.gitkeep
+!secrets/.env.dev
+composer.lock

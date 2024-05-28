@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  oauth2-server-mariodevlab:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - "../:/var/www/html"

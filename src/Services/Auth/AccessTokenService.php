@@ -1,18 +1,18 @@
 <?php
 
-namespace MarioDevLab\OAuth2\Services;
+namespace MarioDevLab\OAuth2\Services\Auth;
 
-use Psr\Container\ContainerInterface;
-use Psr\Container\ContainerExceptionInterface;
 use League\OAuth2\Server\AuthorizationServer;
 use League\OAuth2\Server\Exception\OAuthServerException;
+use Psr\Container\ContainerInterface;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 // HTTP Exceptions
 use Slim\Exception\HttpUnauthorizedException;
 
-class AuthAccessTokenService {
+class AccessTokenService {
     private ContainerInterface $container;
 
     public function __construct(ContainerInterface $container) {

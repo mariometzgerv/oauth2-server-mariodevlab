@@ -2,14 +2,14 @@
 
 use DI\Container;
 use League\OAuth2\Server\AuthorizationServer;
-use League\OAuth2\Server\Grant\PasswordGrant;
+use League\OAuth2\Server\Grant\AuthCodeGrant;
 
 // Repositories
 use MarioDevLab\OAuth2\Repositories\AccessTokenRepository;
+use MarioDevLab\OAuth2\Repositories\AuthCodeRepository;
 use MarioDevLab\OAuth2\Repositories\ClientRepository;
 use MarioDevLab\OAuth2\Repositories\RefreshTokenRepository;
 use MarioDevLab\OAuth2\Repositories\ScopeRepository;
-use MarioDevLab\OAuth2\Repositories\UserRepository;
 
 return function (Container $container) {
     $container->set(AuthorizationServer::class, function () {
@@ -21,9 +21,15 @@ return function (Container $container) {
             $_ENV['ENCRYPTION_KEY'],
         );
 
-        $grant = new PasswordGrant(new UserRepository(), new RefreshTokenRepository());
-        $grant->setRefreshTokenTTL(new DateInterval('P1M'));
-        $server->enableGrantType($grant, new DateInterval('PT12H'));
+        $server->enableGrantType(
+            new AuthCodeGrant(
+                new AuthCodeRepository(),
+                new RefreshTokenRepository(),
+                new DateInterval('PT10M'),
+            ),
+            new DateInterval('PT1H')
+        );
+
         return $server;
     });
 };
